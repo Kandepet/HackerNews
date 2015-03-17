@@ -8,6 +8,15 @@ This is a clone of [Hackernews](http://news.ycombinator.com) written in PHP.
 - Vote on questions and comments
 - Stories are ranked based on user votes using an algorithm similar to [hacker news ranking](http://www.righto.com/2013/11/how-hacker-news-ranking-really-works.html).
 
+## Screen shots
+
+### Front Page
+![Front Page](http://i.imgur.com/lxLYign.png)
+
+### Comments
+![Comments](http://i.imgur.com/8eWHGsr.png)
+
+
 ## System Requirements
 
 This has been tested on
