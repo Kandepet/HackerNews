@@ -1,0 +1,33 @@
+[site]
+title = "Hacker News Clone in PHP"
+admin_email = "hello@example.com"
+base_path = /news
+base_url = http://nextbighack.com
+themes_dir = templates
+theme = stanley
+
+[email]
+type = 'mail';
+[smtp]
+host = '';
+user = '';
+pass = '';
+
+[twig_config]
+cache = false
+autoescape = false
+debug = true
+
+[db]
+username = ''
+password = ''
+host = ''
+database = ''
+prefix = ''
+
+[cookies]
+time = '2592000';
+name = 'hackernewsL';
+
+[search]
+type = 'pattern'

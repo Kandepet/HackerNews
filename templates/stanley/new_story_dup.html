@@ -1,0 +1,48 @@
+{% include 'header.html' %}
+
+
+
+<div id="white">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+
+    <form class="form1" action="{{base_url}}/add_story.php" method="POST">
+      <fieldset>
+        <div id="legend">
+          <legend class="">Submit new story</legend>
+<span style="color: #990000;font-weight: bold;font-size: 11px;">Your story might be a duplicate of one that has already been submitted</span><br>
+                <span style="font-size:11px;color:#666666;">Please check the story below to make sure yours is not the same as one of them. If it's not the same, continue submitting using the button below.</span><br>
+                <br><br>
+
+        </div>
+	{% for story in stories %}
+		<div class="col-lg-8 col-lg-offset-2">
+			<h4><a href="{{ story.story_url }}">{{ story.story_title }}</a> {% if story.domain %} ( {{ story.domain }} ) {% endif %}</h4>
+			<p><bd>{{ story.story_votes }} points by {{ story.user_name }} {{ story.ago }} ago | {% if story.story_comments %} <a href="{{ story.story_link }}">{{ story.story_comments }} comments <a> {% else %} <a href="{{ story.story_link }}">discuss</a> {% endif %}</bd></p>
+		</div>
+	{% endfor %}
+
+
+        <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+            <button type="submit" name="Submit" value="Continue Submitting My Story" class="btn btn-success">Continue Submitting My Story</button>
+            <button type="button" name="Cancel" value="Cancel" class="btn" onclick="location.href='{{base_url}}';">Cancel</button>
+		<input name="story_url" type="hidden" id="story_url" value="{{ story_url }}">
+          	<input name="story_title" type="hidden" id="story_title" value="{{ story_title }}">
+          	<input name="story_desc" type="hidden" id="story_desc" value="{{ story_desc }}">
+		<input name="dupe" type="hidden" id="dupe" value="1">
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+
+  </div>
+</div>
+</div>
+</div>
+
+
+{% include 'footer.html' %}

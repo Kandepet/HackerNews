@@ -1,0 +1,103 @@
+{% include 'header.html' %}
+
+
+<script language="JavaScript">
+  function setVisibility(id, visibility) {
+    document.getElementById(id).style.display = visibility;
+  }
+</script>
+<style>
+#forgot_password {
+  display: none;
+}
+</style>
+
+
+<div id="white">
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-8 col-lg-offset-2">
+
+    {% if mode == "login" %}
+      <h3>Please Log In, or <a href="{{base_url}}/signup.php">Sign Up</a></h3>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
+        </div>
+      </div>
+      <div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+
+      <form name="form1" method="post" action="{{ base_url }}/login.php" role="form">
+        <div class="form-group">
+          <label for="inputUsernameEmail">Username or email</label>
+          <input type="text" name="username" id="username" class="form-control">
+        </div>
+        <div class="form-group">
+          <a class="pull-right" href="#" onclick="setVisibility('forgot_password', 'inline');">Forgot password?</a>
+          <label for="inputPassword">Password</label>
+          <input type="password" name="password" class="form-control" id="password">
+        </div>
+        <div class="checkbox pull-right">
+          <label>
+            <input name="remember" id="remember" value="1" type="checkbox">
+            Remember me </label>
+        </div>
+        <input name="redirect" id="redirect" value="{{redirect}}" type="hidden">
+        <button type="submit" name="Submit" value="Login" class="btn btn-success">
+          Log In
+        </button>
+        <span class="warning">{{login_error}}</span>
+	<div id="forgot_password">
+        <h3>Forgot password? </h3>
+        <div class="form-group">
+          <label for="inputUsernameEmail">Enter your email to retrieve your password</label>
+          <input type="text" name="email" id="email" class="form-control">
+        </div>
+        <button type="submit" name="Submit" value="Retrieve Password" class="btn btn-success">
+          Retrieve Password
+        </button>
+	</div>
+      </form>
+    {% elseif mode == "email_sent" %}
+      <h3>Thank you. Please check your email for a password reset link.</h3>
+    {% elseif mode == "password_reset" %}
+      <h3>Please enter a new password for '{{ username }}'</a></h3>
+      <form name="form1" method="post" action="{{ base_url }}/login.php" role="form">
+        <div class="form-group">
+          <label for="inputPassword">Password</label>
+          <input type="password" name="password" class="form-control" id="password">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Confirm Password</label>
+          <input type="password" name="password2" class="form-control" id="password2">
+        </div>
+	<input type="hidden" name="forgot" id="forgot" value="{{forgot}}">
+	<input type="hidden" name="r" id="r" value="{{r}}">
+	<input type="hidden" name="e" id="e" value="{{e}}">
+	<input type="hidden" name="t" id="t" value="{{t}}">
+
+        <button type="submit" name="Submit" value="Reset Password" class="btn btn-success">
+          Reset Password
+        </button>
+      </form>
+    {% elseif mode == "password_reset_success" %}
+      <h3>Thank you. Password successfully changed for '{{username}}'.</h3>
+    {% elseif mode == "error" %}
+      <h3>{{ error_message }}</h3>
+    {% endif %}
+
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+{% include 'footer.html' %}

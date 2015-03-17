@@ -1,0 +1,38 @@
+{% include 'header.html' %}
+
+
+<div id="white">
+   <div class="container">
+      <div class="row">
+         {% for story in stories %}
+         <div class="col-lg-8 col-lg-offset-2" style="clear: both;">
+            <div style="float: left;padding-right: 10px;">
+               <h4 style="display: block; min-width: 20px">{% if story.voted == 0 %}<a href="javascript:vote({{ story.story_id }});"><span id="digbut{{ story.story_id }}" class="caret caret-reversed"> </span></a>{% endif %}</h4>
+            </div>
+            <div style="float: left;">
+               <h4 class="story_title"><a href="{{ story.story_url }}">{{ story.story_title }} {% if story.domain %} <span class="domain">({{ story.domain }})</span> {% endif %}</a></h4>
+               <p><bd>{{ story.story_votes }} points by <a href="{{story.user_link}}">{{ story.user_name }}</a> {{ story.ago }} ago | {% if story.story_comments %} <a href="{{ story.story_link }}">{{ story.story_comments }} comments </a> {% else %} <a href="{{ story.story_link }}">discuss</a> {% endif %}</bd></p>
+            </div>
+         </div>
+         {% endfor %}
+         {% if page_nav | length > 1 %}
+            <div class="col-lg-8 col-lg-offset-2" style="clear: both">
+               <nav>
+                  <ul class="pagination">
+                     {% for item in page_nav %}
+                     {% if item.current %}
+                     <li><a class="active" href="{{base_url}}/{{item.link}}">{{item.title}} <span class="sr-only">(current)</span></a></li>
+                     {% else %}
+                     <li><a href="{{base_url}}/{{item.link}}">{{item.title}}</a></li>
+                     {% endif %}
+                     {% endfor %}
+                  </ul>
+               </nav>
+            </div>
+         {% endif %}
+      </div><!-- /row -->
+   </div> <!-- /container -->
+</div><!-- /white -->
+<!-- -->
+
+{% include 'footer.html' %}

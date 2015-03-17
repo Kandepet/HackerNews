@@ -1,0 +1,73 @@
+{% include 'header.html' %}
+
+
+
+<div id="white">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+
+    <form class="form1" action="{{base_url}}/add_story.php" method="POST">
+      <fieldset>
+        <div id="legend">
+          <legend class="">Submit new story</legend>
+        </div>
+        <div class="control-group">
+          <!-- Title -->
+          <label class="control-label"  for="title">Title</label>
+          <div class="controls">
+            <input type="text" id="story_title" name="story_title" value="{{story_title}}" placeholder="" class="form-control">
+	    <span class="error">{{ title_error }}</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- URL -->
+          <label class="control-label" for="url">URL</label>
+          <div class="controls">
+            <input type="text" id="story_url" name="story_url" placeholder="" value="{{ story_url }}" class="form-control" >
+	    <span class="error">{{ url_error }}</span>
+          </div>
+        </div>
+
+      <div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+
+
+        <div class="control-group">
+          <!-- Description-->
+          <label class="control-label" for="description">Text</label>
+          <div class="controls">
+            <textarea type="textarea" id="story_desc" rows="6" name="story_desc" value="{{story_desc}}" placeholder="" class="form-control">{{ story_desc }} </textarea>
+	    <span class="error">{{ desc_error }}</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+            <button type="submit" name="submit" value="Submit Story" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Description-->
+          <div class="controls">
+            <p>Leave url blank to submit a question for discussion. If there is no url, the text (if any) will appear at the top of the thread.</p>
+
+	    <p>You can also submit via <a style="color: #777; font-size: 2em;" href="javascript:window.location=%22{{base_url}}/add_story.php?story_url=%22+encodeURIComponent(document.location)+%22&story_title=%22+encodeURIComponent(document.title)">bookmarklet</a>.</p>
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+
+  </div>
+</div>
+</div>
+</div>
+
+
+{% include 'footer.html' %}

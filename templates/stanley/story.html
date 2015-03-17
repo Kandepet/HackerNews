@@ -1,0 +1,97 @@
+{% include 'header.html' %}
+
+	<!-- +++++ Post +++++ -->
+	<div id="white">
+	    <div class="container">
+			{% if story is defined %}
+                        {# dump(story) #}
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<h4><a href="{{ story.story_url }}">{{ story.story_title }}</a> {% if story.domain %}  ({{story.domain}}) {% endif %}</h4>
+                                        <p><bd>{{ story.story_votes }} points by <a href={{story.user_link}}>{{ story.user_name }}</a> {{ story.ago }} ago | {{ story.story_comments }} comments</bd></p>
+					<p>{{ story.story_desc }}</p>
+					<br>
+					<!--<p><bt>TAGS: <a href="#">Wordpress</a> - <a href="#">Web Design</a></bt></p>-->
+					<hr>
+					<!--<p><a href="blog.html"># Back</a></p>-->
+				</div>
+				<div class="col-lg-8 col-lg-offset-2">
+	                            <a name="commentbox"></a>
+	                            <strong>Add your comment</strong><br><br>
+				    {% if loggedin == 0 %}
+				    Please <a href="{{ base_url }}/login.php">Login</a> or <a href="{{ base_url }}/signup.php">Signup</a> to leave a comment
+				    {% else %}
+                                    <form name="form1" method="post" action="{{ base_url }}/story.php?id={{ story.story_id }}" style="padding:0px;margin:0px;">
+	                                <div id="creply" style="display:none;">
+	                                    <span>Replying to comment by <span id="replynick"></span> (<a href="javascript:replyCancel();">cancel</a>)</span>
+	                                </div>
+                                        <textarea name="comment" id="comment" style="width:95%;height:100px;"></textarea>
+ 					<br>
+ 					<br>
+ 					<br>
+                                        <input type="submit" name="Submit" value="Add Comment" class="btn btn-success"><input type="hidden" name="parentid" id="parentid" value="0">
+                                    </form>
+				    {% endif %}
+				    <hr>
+				</div>
+
+
+			</div><!-- /row -->
+			<div class="row">
+                          <div class="col-lg-8 col-lg-offset-2">
+                            <!--<h2 class="page-header">Comments</h2>-->
+                              <section class="comment-list">
+                                <!-- First Comment -->
+                                <div class="row">
+                                  {% macro nested_comments(comments, story) %}
+                                      {% import _self as macros %}
+                                        {# dump(comments) #}
+                                        {% for comment in comments %}
+	                                    {# dump(comment) #}
+                                            <ul>
+                                              <li>
+                                              <div class="comment_meta"><a href="javascript:voteComment({{ comment.comment_id }} ,1, {{ story.story_id }});"><img id="cup4" src="http://nextbighack.com/hackernews/templates/simple/images/arrow_up.gif" border="0" width="16" height="16"></a><a href="{{comment.user_link}}">{{comment.user_name }}</a> {{ comment.ago }} ago | <span class="comdigs" id="comd{{ comment.comment_id }}">{{ comment.comment_votes }} points</span></div>
+	                                       <div>{{ comment.comment_desc }} </div>
+	                                       <span class="subline">[<a href="#commentbox" onclick="commentReply({{ comment.comment_id }},'{{ comment.user_name }}');">reply</a>]</span>
+                                              </li>
+                                              {% if comment.replies %}
+                                                       {{ macros.nested_comments(comment.replies, story) }}
+                                               {% endif %}
+                                           </ul>
+                                       {% endfor %}
+                                   {% endmacro %}
+
+                                   {% import _self as macros %}
+
+                                               {% for top_comment in comments %}
+                                   		{# dump(top_comment.comment_desc) #}
+                                   		<ul class="top-comment">
+                                                       <li>
+                                                       <div class="comment_meta"><a href="javascript:voteComment( {{ top_comment.comment_id }}, 1, {{ story.story_id }});"><img id="cup4" src="http://nextbighack.com/hackernews/templates/simple/images/arrow_up.gif" border="0" width="16" height="16"></a><a href="{{top_comment.user_link}}">{{top_comment.user_name }}</a> {{ top_comment.ago }} ago | <span class="comdigs" id="comd{{ top_comment.comment_id }}">{{ top_comment.comment_votes }} points</span></div>
+                                   		        <div>{{ top_comment.comment_desc }} </div>
+                                   	                <span class="subline">[<a href="#commentbox" onclick="commentReply({{ top_comment.comment_id }},'{{ top_comment.user_name }}');">reply</a>]</span>
+                                   		    </li>
+                                       		        {{ macros.nested_comments(top_comment.replies, story) }}
+                                   		</ul>
+                                               {% endfor %}
+
+
+
+
+                                  </div>
+                                </section>
+                            </div>
+                          </div>
+			{% else %}
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<h4>NO STORY FOUND WITH THAT ID</h4>
+					<hr>
+				</div>
+			</div>
+			{% endif %}
+	    </div> <!-- /container -->
+	</div><!-- /white -->
+
+
+{% include 'footer.html' %}
