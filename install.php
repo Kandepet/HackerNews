@@ -177,7 +177,7 @@ $sql_statements = $SqlParser->load($sql);
 foreach($sql_statements as $statement) {
    echo "Executing: " . $statement["query_parsed"]["type"] . "\n";
    //echo "Query: " . $statement["query"] . "\n";
-   //echo "Executed? " . $db->unPreparedRawQuery($statement["query"]) . "\n";
+   $db->unPreparedRawQuery($statement["query"]);
 }
 
 exit;
