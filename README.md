@@ -47,4 +47,4 @@ composer install
 
 ## License
 
-Hackernews is released under the MIT License. See [LICENSE][1] file for details.
+Hackernews is released under the MIT License. See [LICENSE](LICENSE) file for details.
